@@ -1,6 +1,6 @@
-####This file is OBSOLETE and has been REVISED on 6/26/2020
-####This file is OBSOLETE and has been REVISED on 6/26/2020
-####This file is OBSOLETE and has been REVISED on 6/26/2020
+####This file is OLD and has been REVISED on 6/26/2020
+####This file is OLD and has been REVISED on 6/26/2020
+####This file is OLD and has been REVISED on 6/26/2020
 
 detach()
 GSPC_Historical <- read.csv("GSPC_MaxData_20190723.csv")
