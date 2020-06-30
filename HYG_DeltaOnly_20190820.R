@@ -1,9 +1,15 @@
+####This document reads in the performance data of the ishares High Yield Corporate Bond Fund ETF from a chosen time interval
+####And computes two statistics, the change in value from a previous close to a current close, or the AbsChange,
+####And the percentage change between a previous close and a current close, or Delta
+
+####Of equal significance, this document is read into by another document, 'NSRGYMerged8_NormClose_REVISED_20200627.R'
+
+#The dataset comes straight from Yahoo Finance
 HYG_Historical <- read.csv("HYG_20070411_20190820.csv")
 library(dplyr)
 library(ggplot2)
 library(stringr)
 library(tidyr)
-#Loadin up the data and calling the needed packages
 
 ###################################
 ###################################
