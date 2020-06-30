@@ -1,3 +1,7 @@
+####This file is OLD and has been REVISED on 6/27/2020
+####This file is OLD and has been REVISED on 6/27/2020
+####This file is OLD and has been REVISED on 6/27/2020
+
 source("GSPC_DeltaOnly_20190820.R")
 source("DJI_DeltaOnly_20190820.R")
 source("NSRGY_DeltaOnly_20190820.R")
