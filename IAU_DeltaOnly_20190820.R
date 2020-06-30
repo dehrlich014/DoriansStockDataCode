@@ -1,4 +1,4 @@
-####This document reads in the performance data of the ishareas Gold ETF from a chosen time interval
+####This document reads in the performance data of the ishares Gold ETF from a chosen time interval
 ####And computes two statistics, the change in value from a previous close to a current close, or the AbsChange,
 ####And the percentage change between a previous close and a current close, or Delta
 
