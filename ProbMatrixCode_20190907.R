@@ -1,3 +1,8 @@
+####This file is OBSOLETE and has been REVISED on 6/27/2020
+####This file is OBSOLETE and has been REVISED on 6/27/2020
+####This file is OBSOLETE and has been REVISED on 6/27/2020
+
+
 #Making vectors with names of every prior/post we are using
 priors <- c("Delta_Prior","Delta_2DayPrior","Delta_3DayPrior","Delta_5DayPrior","Delta_10DayPrior","Delta_20DayPrior","Delta_50DayPrior","Delta_100DayPrior","Delta_200DayPrior")
 posts <- c("Delta","Delta_2DayPost","Delta_3DayPost","Delta_5DayPost","Delta_10DayPost","Delta_20DayPost","Delta_50DayPost","Delta_100DayPost","Delta_200DayPost")
