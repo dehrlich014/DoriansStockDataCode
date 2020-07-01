@@ -1,8 +1,9 @@
-#####This document calculates numeric changes in the value of the S&P 500
+#####This document calculates numeric changes in the value of the S&P 500.
 #####Changes over 1,2,3,5,10,20,50,100,200 days each are calculated
-#####For every trading day since 01/03/1950
-#####The document also works through an example
-#####Meant to help understand how to build a matrix of matrices
+#####for every trading day since 01/03/1950.
+
+#####At the end of the document is a worked example
+#####meant to help understand how to build a matrix of matrices.
 
 ###################################
 
@@ -16,35 +17,32 @@ library(prob)
 
 ###################################
 GSPC_N <- length(GSPC_Historical[[1]])
-###Our statistical N
+###Our statistical N.
 
 GSPC_Historical <- rename(GSPC_Historical,"AdjClose" = "Adj.Close")
-####Reformatting the date into something that R can make sense of
 GSPC_Historical$Date <- (as.Date(GSPC_Historical$Date, format = "%m/%d/%Y"))
-#GSPC_Historical$Date <- (as.Date(GSPC_Historical$Date))
 
 
-####We just don't need these variables from YahooFinance at this time
 GSPC_Historical$Open <- NULL
 GSPC_Historical$High <- NULL
 GSPC_Historical$Low <- NULL
 GSPC_Historical$Close <- NULL
-#We don't need the close because we are using the AdjClose... always
+#We are using the AdjClose... always
 
-#I am now adding in the 1-day-prior variable, which we'll just call "Delta_Prior"
-#Remember that the 1-day-post is simply Delta, and thus it's already been calculated
+#I am now adding in the 1-day-prior variable, which we'll just call "Delta_Prior".
+#Remember that the 1-day-post is simply Delta, and thus it's already been calculated.
 GSPC_Historical$AbsChange <- 0
 GSPC_Historical$Delta <- 0
 GSPC_Historical$AbsChange_Prior <- 0
 GSPC_Historical$Delta_Prior <- 0	
 
-#Creating/Initializing the very important "priors" for t = 2,3,5,10,20,50,100,200
-#These variables will contain information about what happened t days before the currentDay
-#The idea is to look at conditional probabilitites, which I believe is a Bayesian approach
+#Creating/Initializing the very important "priors" for r = 2,3,5,10,20,50,100,200.
+#These variables will contain information about what happened r days before the currentDay.
+#The idea is to look at conditional probabilitites, which I believe is a Bayesian approach.
 #The particular variables being created/initialized above will look at the absolute change
-#of the stock price over a period
+#of the stock price over a period.
 
-#First, we create/initialize the absolute change in value of the S&P over t days
+#First, we create/initialize the absolute change in value of the S&P over r days.
 
 GSPC_Historical$AbsChange_2DayPrior <- 0
 GSPC_Historical$AbsChange_3DayPrior <- 0
@@ -55,10 +53,10 @@ GSPC_Historical$AbsChange_50DayPrior <- 0
 GSPC_Historical$AbsChange_100DayPrior <- 0
 GSPC_Historical$AbsChange_200DayPrior <- 0
 
-#Now we create/initialize the priors containing percent gain over t days
+#Now we create/initialize the priors containing percent gain over r days.
 #The order is chosen this way because in calculating the Delta's
 #The AbsChange for the same day is used as the numerator of the fraction
-#that is Delta
+#that is Delta.
 
 GSPC_Historical$Delta_2DayPrior <- 0
 GSPC_Historical$Delta_3DayPrior <- 0
@@ -80,8 +78,8 @@ GSPC_Historical$AbsChange_50DayPost <- 0
 GSPC_Historical$AbsChange_100DayPost <- 0
 GSPC_Historical$AbsChange_200DayPost <- 0
 
-#AND Creating/Initializing the very equally important "posts"
-#These variables will contain information about what happened t days after the currentDay
+#AND Creating/Initializing the very equally important "posts".
+#These variables will contain information about what happened t days after the currentDay.
 
 GSPC_Historical$Delta_2DayPost <- 0
 GSPC_Historical$Delta_3DayPost <- 0
@@ -94,35 +92,35 @@ GSPC_Historical$Delta_200DayPost <- 0
 
 ###################################
 
-#This is where we get to the meat of this file; computing Delta_t's
-#The probabilities to be calculated will be called (WLOG) "Delta_[t]DayPost"
-#Delta refers to the fact that the number computed is a percent change over time
+#This is where we get to the meat of this file; computing Delta_t's.
+#The probabilities to be calculated will be called (WLOG) "Delta_[t]DayPost".
+#Delta refers to the fact that the number computed is a percent change over time.
 
 for(i in 2:GSPC_N){
-	#Can't calculate a prior for day1, so skip to day2 for cleanliness
+	#Can't calculate a prior for day1, so skip to day2 for cleanliness.
 	
-	#Taking the opportunity to populate these variables
-	#By my estimation, variables that look at DayOverDay need an interative process to populate
+	#Taking the opportunity to populate these variables.
+	#By my estimation, variables that look at DayOverDay need an interative process to populate.
 	GSPC_Historical$AbsChange[i] <- (GSPC_Historical$AdjClose[i] - GSPC_Historical$AdjClose[i-1])
 	GSPC_Historical$Delta[i] <- (GSPC_Historical$AbsChange[i]/GSPC_Historical$AdjClose[i-1])
 	######New Delta_Prior code here ]
 	
-	#The rest of this code will all go in the i-loop
+	#The rest of this code will all go in the i-loop.
 	#We are populating the period-over-period change for
-	#t = 2,3,5,10,20,50,100,200 days
+	#t = 2,3,5,10,20,50,100,200 days.
 	
 	if(i>=3){
 		GSPC_Historical$AbsChange_Prior[i] <- GSPC_Historical$AbsChange[i-1]
 		GSPC_Historical$Delta_Prior[i] <- GSPC_Historical$Delta[i-1]
-		#Delta happened on day 1
+		#Delta happened on day 1.
 		#So since the Delta_Prior for day 2 would be what happened on day 1
-		#we assign Delta[1] to Delta_Prior[2] 
+		#we assign Delta[1] to Delta_Prior[2].
 	}
 	
 	if(i>=4){
-		#we want the change that occurred in the 2 days prior to day i
-		#that means we want to see how close(day i-1) relates to close(day i-3)
-		#note that this isn't defined unless i>=4, since i can't be 0 or less
+		#we want the change that occurred in the 2 days prior to day i.
+		#That means we want to see how close(day i-1) relates to close(day i-3).
+		#Note that this isn't defined unless i>=4, since i can't be 0 or less.
 		GSPC_Historical$AbsChange_2DayPrior[i] <- ((GSPC_Historical$AdjClose[[(i-1)]] - GSPC_Historical$AdjClose[[(i-3)]]))
 		GSPC_Historical$Delta_2DayPrior[i] <- (GSPC_Historical$AbsChange_2DayPrior[[i]]/GSPC_Historical$AdjClose[[(i-3)]])
 		
@@ -190,47 +188,47 @@ for(i in 2:GSPC_N){
 
 }
 
-####What comes below is the beginnnings of the work on the tessaract
-####We will work towards the tessaract, or matrix of matrices, with a "warm-up example"
+####What comes below is the beginnnings of the work on the tessaract.
+####We will work towards the tessaract, or matrix of matrices, with a "warm-up example".
 ####The example we are working is 
-####The finished product can be found in ProbMatrixCode_REVISED_20200626.R
+####the finished product that's found in ProbMatrixCode_REVISED_20200626.R.
 
 S <- GSPC_Historical
 ####Changing name here to reflect that our data set
-####is ultimately just one big sample space
+####is ultimately just one big sample space.
 S$probs <- 1/length(S$Date)
 attach(S)
 
-###More on sample spaces below from before this revision:
+###More on sample spaces below from a time before this revision:
 ###8/3/2019
 ###We're going to think of the data set GSPC_Historical (S for ease of notation, essentially) 
 ###which contains data on each and every day of trading on the ^GSPC 
 ###as "every possible outcome" of an experiment, namely
-###The experiment of observing the day-to-day change (in the adjusted closing price of the ^GSPC)
-###of a random day of trading on the ^GSPC
+###the experiment of observing the day-to-day change (in the adjusted closing price of the ^GSPC)
+###of a random day of trading on the ^GSPC.
 
-###We are ultimately interested in quantifying our expectations of where stock prices change/will change over periods of time
+###We are ultimately interested in quantifying our expectations of where stock prices change/will change over periods of time.
 
 ########################################################################################################
 
-#First, we work through a single table
+#First, we work through a single table/
 #To warm up, we will calculate the uncoditional probability
-#Prob(\Delta > k*.001) for k \in {0,1,2,...,100}
+#Prob(\Delta > k*.001) for k \in {0,1,2,...,100}.
 #For example, if k=52, the calculation being made iteratively in the code below
-#would be Prob(dayOverDayChange[currDay] > .052)
-#or in other words what is the likelihood that any given trading day
+#would be Prob(dayOverDayChange[currDay] > .052).
+#In other words, what is the likelihood that any given trading day
 #saw a change from open to close of 5.2% in the value of the S&P 
 
 myTable <- data.frame(k = 0:100)
-#We'll initiate the count vector k so that we can iterate through a formula that uses a constant multiplier
+#We'll initiate the count vector k so that we can iterate through a formula that uses a constant multiplier.
 myTable$distanceFromZero <- myTable$k*.001
-#Adding the column that contains the desired percentage changes
-#Which can be thought of as distances from zero
+#Adding the column that contains the desired percentage changes,
+#Which can be thought of as distances from zero,
 
 
 #In the following for loop, we'll be calculating probabilities
-#that the change in S&P over t days is greater than each value of k
-#We'll do everything in one big loop
+#that the change in S&P over t days is greater than each value of k.
+#We'll do everything in one big loop.
 
 
 for(i in 1:length(myTable$k)){
@@ -238,7 +236,7 @@ for(i in 1:length(myTable$k)){
 	#For each i
 	#we'll initialize and populate for each particular range of days,
 	#the Probability that the rDayPost is a percentage change larger
-	#in magnitude that distanceFromZero[i]
+	#in magnitude that distanceFromZero[i].
 	
 	myTable$probs[i] <- Prob(subset(S,S$Delta > myTable$distanceFromZero[i]))
 	myTable$totalNum[i] <- length(subset(S,S$Delta > myTable$distanceFromZero[i])$Date)
@@ -268,7 +266,7 @@ for(i in 1:length(myTable$k)){
 	myTable$totalNum_t200[i] <- length(subset(S,S$Delta_200DayPost > myTable$distanceFromZero[i])$Date)
 	
 	###probs_tX contains the probabililty at each .001 step, that
-	###any given XDayPost would be bigger than distanceFromZero[i]
+	###any given XDayPost would be bigger than distanceFromZero[i].
 }
 
 ########################################################################################################
