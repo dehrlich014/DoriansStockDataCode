@@ -19,7 +19,7 @@ DJI_N <- length(DJI_Historical[[1]])
 DJI_Historical <- rename(DJI_Historical,"AdjClose" = "Adj.Close")
 
 ####Reformatting the date into something that R can make sense of
-#DJI_Historical$Date <- (as.Date(DJI_Historical$Date, format = "%m/%d/%y")).
+#DJI_Historical$Date <- (as.Date(DJI_Historical$Date, format = "%m/%d/%y"))
 DJI_Historical$Date <- (as.Date(DJI_Historical$Date))
 
 
