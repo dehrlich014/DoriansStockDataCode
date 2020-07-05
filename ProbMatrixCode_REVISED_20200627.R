@@ -109,8 +109,8 @@ for(r in 1:length(priors)){
 				#So in each of the 11 i-loops,we populate currCol with 11/121 entries.
 				
 				if(j==10){
-					print("Trying to name rows")
-					print(paste("i,j are",i,j,sep = " "))
+					#print("Trying to name rows")
+					#print(paste("i,j are",i,j,sep = " "))
 					row.names(currTable)[i+1] <- paste("dr=",as.character(dr),sep="")
 				}
 				#i+1 because i starts from 0 and there is no row 0 in R.
@@ -124,8 +124,8 @@ for(r in 1:length(priors)){
 			}
 			#Add each newly populated currCol to currTable and name the column while in our currTable.
 			#j+2 because j starts from 0 AND we apparently will get a bugged first column that we have to ignore and then remove.
-			print("Trying to name columns")
-			print(paste("i,j are",i,j,sep = " "))
+			#print("Trying to name columns")
+			#print(paste("i,j are",i,j,sep = " "))
 			colnames(currTable)[j+2] <- paste("dt=",as.character(dt),sep="")
 		###End of j loop
 		}
