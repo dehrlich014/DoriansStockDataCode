@@ -217,7 +217,7 @@ colnames(Day10Changes) <- priors
 #Please note: The row that shows 0% is the range -.25% - 0%, the row that shows
 #-.25% is the range -.5% - -.25% and so on. This is to say the name of the row is the top of the range,
 #and the name of the row below is bottom of the range of the same row in question.
-#The last row, -5%, is the values -10% - -5% in the range of the prior changes,
+#The last row, -5%, is the values -10% - -5% in the range of the prior changes.
 
 print(Day10Changes)
 
