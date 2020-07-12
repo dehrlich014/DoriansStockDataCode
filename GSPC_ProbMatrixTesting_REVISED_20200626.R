@@ -7,6 +7,7 @@
 
 ###################################
 
+
 detach()
 GSPC_Historical <- read.csv("GSPC_MaxData_20190723.csv")
 library(dplyr)
