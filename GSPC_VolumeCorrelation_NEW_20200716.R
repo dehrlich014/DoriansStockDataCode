@@ -1,4 +1,4 @@
-####This document looks at the S&P performance data from the beginning of 2000 to last week
+####This document looks at the S&P performance data from the beginning of 2000 to two weeks ago
 ####and computes the correlation coefficients for Delta_rDayPrior and Delta_tDayPost *each with trading volume*
 ####on the day of, for r,t \in {1,2,3,4,5,7,10}.
 ####The r^2 figures will be stored in a 2 X 7 data.frame.
@@ -156,7 +156,7 @@ for(i in 3:n){
 
 ################################################################################
 
-#Now we'll begin working on finding and storing the correlation coefficinets
+#Now we'll begin working on finding and storing the correlation coefficinets.
 #that are generated when taking the correlation between volume and each prior and post delta.
 
 S <- GSPC_Historical[12:n,]
