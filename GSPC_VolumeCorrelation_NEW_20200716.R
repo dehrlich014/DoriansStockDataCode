@@ -9,6 +9,7 @@ library(stringr)
 library(tidyr)
 library(prob)
 
+###################################################
 
 GSPC_Historical <- read.csv("GSPC_20000103_20200703.csv")
 
