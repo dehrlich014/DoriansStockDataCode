@@ -4,6 +4,7 @@
 ####WHERE dr ranges over [-.05,.05] BY .01 AND dt ranges over [0,.1] BY .01
 ####AND WHERE t,r each range over the set {1,2,3,5,10,20,50,100,200}.
 ####***What's externally needed for this file to run, however, is a sample space, S, that has computed each of the rDayPriors and tDayPosts.
+####***Please do not run this file unless and until GSPC_ProbMatrixTesting_REVISED_20200626.R has been run.
 
 
 #Making vectors with names of every prior/post we are using.
