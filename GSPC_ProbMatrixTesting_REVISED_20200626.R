@@ -252,7 +252,7 @@ for(i in 1:length(myTable$k)){
 	myTable$totalNum_t5[i] <- length(subset(S,S$Delta_5DayPost > myTable$distanceFromZero[i])$Date) 
 	
 	myTable$probs_t10[i] <- Prob(subset(S,S$Delta_10DayPost > myTable$distanceFromZero[i]))
-	myTable$totalNum_t5[i] <- length(subset(S,S$Delta_10DayPost > myTable$distanceFromZero[i])$Date)
+	myTable$totalNum_t10[i] <- length(subset(S,S$Delta_10DayPost > myTable$distanceFromZero[i])$Date)
 	
 	myTable$probs_t20[i] <- Prob(subset(S,S$Delta_20DayPost > myTable$distanceFromZero[i]))
 	myTable$totalNum_t20[i] <- length(subset(S,S$Delta_20DayPost > myTable$distanceFromZero[i])$Date)
